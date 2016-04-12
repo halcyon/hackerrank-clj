@@ -1,19 +1,16 @@
 (ns hackerrank-clj.thirty-days-test
   (:require [clojure.test :refer :all]
-            [hackerrank-clj.thirty-days :refer :all]))
+            [hackerrank-clj.thirty-days :refer :all]
+            [hackerrank-clj.util :refer [wrap-io]]))
 
 (deftest operators-test
-  (let [in (str "12.00\n"
-                "20\n"
-                "8\n")
-        out "The total meal cost is 15 dollars.\n"]
-    (is (= out
-           (with-in-str in (with-out-str (total-meal-cost)))))))
-
+  (is (= "The total meal cost is 15 dollars.\n"
+         (wrap-io operators (str "12.00\n"
+                                 "20\n"
+                                 "8\n")))))
 
 (deftest intro-to-cond-test
-  (are [in out] (= out
-                   (with-in-str in (with-out-str (intro-to-cond))))
+  (are [in out] (= out (wrap-io intro-to-cond in))
     "3" "Weird\n"
     "4" "Not Weird\n"
     "6" "Weird\n"
