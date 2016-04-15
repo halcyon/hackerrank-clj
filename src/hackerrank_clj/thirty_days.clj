@@ -22,3 +22,11 @@
       (<= 2 number 5) (println "Not Weird")
       (<= 6 number 20)  (println "Weird")
       (> number 20) (println "Not Weird"))))
+
+(defn loops []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        number (Integer/parseInt (first in))]
+    (loop [n 1]
+      (when (<= n 10)
+        (println number "x" n "=" (* number n))
+        (recur (inc n))))))
