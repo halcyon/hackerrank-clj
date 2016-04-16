@@ -32,3 +32,9 @@
               "2 x 9 = 18\n"
               "2 x 10 = 20\n")
          (wrap-io loops (str "2\n")))))
+
+(deftest review-loop-test (is (= (str "Funny\n"
+                                      "Not Funny\n")
+                                 (wrap-io review-loop (str "2\n"
+                                                           "acxz\n"
+                                                           "bcxz\n")))))
