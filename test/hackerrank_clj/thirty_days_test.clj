@@ -38,3 +38,7 @@
                                  (wrap-io review-loop (str "2\n"
                                                            "acxz\n"
                                                            "bcxz\n")))))
+
+(deftest array-test (is (= (str "2 3 4 1\n")
+                           (wrap-io array (str "4\n"
+                                               "1 4 3 2\n")))))

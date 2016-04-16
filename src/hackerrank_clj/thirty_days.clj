@@ -60,3 +60,9 @@
         number (Integer/parseInt (first in))
         lines (rest in)]
     (dorun (map funny-printer lines))))
+
+(defn array []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        number (Integer/parseInt (first in))
+        array (rest in)]
+    (apply println (reverse array))))
