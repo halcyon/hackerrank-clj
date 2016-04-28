@@ -22,3 +22,13 @@
       (<= 2 number 5) (println "Not Weird")
       (<= 6 number 20)  (println "Weird")
       (> number 20) (println "Not Weird"))))
+
+(defn fact [n]
+  (if (= n 1)
+    1
+    (* n (fact (dec n)))))
+
+(defn factorial []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        number (Integer/parseInt (first in))]
+    (println (fact number))))

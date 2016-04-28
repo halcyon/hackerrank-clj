@@ -19,3 +19,7 @@
     "20" "Weird\n"
     "22" "Not Weird\n"
     "24" "Not Weird\n"))
+
+(deftest factorial-test
+  (is (= "6\n"
+         (wrap-io factorial (str "3\n")))))
