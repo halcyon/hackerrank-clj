@@ -20,6 +20,29 @@
     "22" "Not Weird\n"
     "24" "Not Weird\n"))
 
+(deftest loops-test
+  (is (= (str "2 x 1 = 2\n"
+              "2 x 2 = 4\n"
+              "2 x 3 = 6\n"
+              "2 x 4 = 8\n"
+              "2 x 5 = 10\n"
+              "2 x 6 = 12\n"
+              "2 x 7 = 14\n"
+              "2 x 8 = 16\n"
+              "2 x 9 = 18\n"
+              "2 x 10 = 20\n")
+         (wrap-io loops (str "2\n")))))
+
+(deftest review-loop-test (is (= (str "Funny\n"
+                                      "Not Funny\n")
+                                 (wrap-io review-loop (str "2\n"
+                                                           "acxz\n"
+                                                           "bcxz\n")))))
+
+(deftest array-test (is (= (str "2 3 4 1\n")
+                           (wrap-io array (str "4\n"
+                                               "1 4 3 2\n")))))
+
 (deftest factorial-test
   (is (= "6\n"
          (wrap-io factorial (str "3\n")))))
