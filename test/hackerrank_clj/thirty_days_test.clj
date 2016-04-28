@@ -39,17 +39,18 @@
                                                            "acxz\n"
                                                            "bcxz\n")))))
 
-(deftest array-test (is (= (str "2 3 4 1\n")
+(deftest array-test (is (= "2 3 4 1\n"
                            (wrap-io array (str "4\n"
                                                "1 4 3 2\n")))))
 
 (deftest factorial-test
   (is (= "6\n"
-         (wrap-io factorial (str "3\n")))))
+         (wrap-io factorial "3\n"))))
 
 
 (deftest max-consecutive-1s-test
   (is (= "1\n"
-         (wrap-io max-consecutive-1s (str "5\n"))))
+         (wrap-io max-consecutive-1s "5\n")))
   (is (= "2\n"
-         (wrap-io max-consecutive-1s (str "13\n")))))
+         (wrap-io max-consecutive-1s "13\n"))))
+
