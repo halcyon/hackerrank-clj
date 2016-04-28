@@ -50,6 +50,6 @@
 
 (deftest max-consecutive-1s-test
   (is (= "1\n"
-         (wrap-io max-consecutive-1s (str "5\n")))
-      (= "2\n"
+         (wrap-io max-consecutive-1s (str "5\n"))))
+  (is (= "2\n"
          (wrap-io max-consecutive-1s (str "13\n")))))
