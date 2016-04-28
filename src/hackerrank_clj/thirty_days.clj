@@ -72,7 +72,38 @@
     1
     (* n (fact (dec n)))))
 
+(defn fact-tail
+  [n]
+  (loop [cnt n acc 1N]
+    (if (zero? cnt)
+      acc
+      (recur (dec cnt) (* acc cnt))
+                                        ; in loop cnt will take the value (dec cnt)
+                                        ; and acc will take the value (* acc cnt)
+      )))
+
 (defn factorial []
   (let [in (clojure.string/split (slurp *in*) #"\s")
         number (Integer/parseInt (first in))]
     (println (fact number))))
+
+(defn dec-to-base
+  [n radix]
+  (loop [i n acc []]
+    (if (zero? i)
+      acc
+      (recur (quot i radix)
+             (conj acc (mod i radix))))))
+
+(defn max-consec
+  [n coll]
+  (apply max (map count
+                  (filter #(= n (first %))
+                          (partition-by identity coll)))))
+
+(defn max-consecutive-1s []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        number (Integer/parseInt (first in))
+        radix 2
+        consecutives 1]
+    (println (max-consec consecutives (dec-to-base number radix)))))
