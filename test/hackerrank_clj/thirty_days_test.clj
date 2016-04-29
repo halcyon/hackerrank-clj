@@ -54,3 +54,11 @@
   (is (= "2\n"
          (wrap-io max-consecutive-1s "13\n"))))
 
+(deftest max-hourglass-test
+  (is (= "19\n"
+         (wrap-io max-hourglass (str "1 1 1 0 0 0\n"
+                                     "0 1 0 0 0 0\n"
+                                     "1 1 1 0 0 0\n"
+                                     "0 0 2 4 4 0\n"
+                                     "0 0 0 2 0 0\n"
+                                     "0 0 1 2 4 0\n")))))

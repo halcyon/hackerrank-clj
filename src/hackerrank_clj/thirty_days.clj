@@ -107,3 +107,44 @@
         radix 2
         consecutives 1]
     (println (max-consec consecutives (dec-to-base number radix)))))
+
+(defn find-hourglass-max
+  [coll]
+  (let [columns 6
+        position {:upper-left 0
+                  :upper-center 1
+                  :upper-right 2
+                  :center 7
+                  :lower-left 12
+                  :lower-center 13
+                  :lower-right 14}
+        shifts 4]
+    (loop [j 0 acc []]
+      (if (< j shifts)
+        (recur (inc j)
+               (concat acc
+                       (loop [i 0 hourglass []]
+                         (if (< i shifts)
+                           (recur (inc i)
+                                  (conj hourglass
+                                        (+ (nth coll (+ i (:upper-left position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:upper-center position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:upper-right position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:center position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:lower-left position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:lower-center position)
+                                                        (* columns j)))
+                                           (nth coll (+ i (:lower-right position)
+                                                        (* columns j))))))
+                           hourglass))))
+        (apply max acc)))))
+
+(defn max-hourglass []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        matrix (map #(Integer/parseInt %) in)]
+    (println (find-hourglass-max matrix))))
