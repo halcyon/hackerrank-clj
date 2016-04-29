@@ -143,8 +143,28 @@
                                                         (* columns j))))))
                            hourglass))))
         (apply max acc)))))
+(defn valid-n?
+  [n]
+  (<= (mod n 6) 3))
+
+(defn hourglass
+  [i [a b c _  _ _ _ d _ _ _ _ e f g]]
+  (when (valid-n? i)
+    [a b c d e f g]))
+
+(defn gen-all-hourglasses
+  [data]
+  (keep identity
+        (map-indexed
+         hourglass
+         (map #(drop % data) (range 22)))))
+
+(defn compute-hourglass-max
+  [data]
+  (apply max (map (partial reduce +)
+                  (gen-all-hourglasses data))))
 
 (defn max-hourglass []
   (let [in (clojure.string/split (slurp *in*) #"\s")
         matrix (map #(Integer/parseInt %) in)]
-    (println (find-hourglass-max matrix))))
+    (println (compute-hourglass-max matrix))))
