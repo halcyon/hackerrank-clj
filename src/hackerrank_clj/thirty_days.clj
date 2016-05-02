@@ -143,6 +143,7 @@
                                                         (* columns j))))))
                            hourglass))))
         (apply max acc)))))
+
 (defn valid-n?
   [n]
   (<= (mod n 6) 3))
