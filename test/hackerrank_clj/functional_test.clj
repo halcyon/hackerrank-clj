@@ -31,11 +31,3 @@
                                           "7\n"
                                           "9\n"
                                           "8\n")))))
-
-(deftest process-rows-test
-  (is (= [["Radnor - Fort Myer Heights" "Virginia/Arlington/Radnor---Fort-Myer-Heights" "18412"]]
-         (process-rows "Radnor - Fort Myer Heights^Virginia/Arlington/Radnor---Fort-Myer-Heights^18412")))
-  (is (= [["Downtown Cleveland" "Ohio/Cleveland/Downtown-Cleveland" "7949"]
-          ["CSU - Euclid Corridor" "Ohio/Cleveland/CSU---Euclid-Corridor" "831845"]
-          ["Campus District" "Ohio/Cleveland/Campus-District" "831839"]]
-         (process-rows "Downtown Cleveland^Ohio/Cleveland/Downtown-Cleveland^7949^+^CSU - Euclid Corridor^Ohio/Cleveland/CSU---Euclid-Corridor^831845^+^Campus District^Ohio/Cleveland/Campus-District^831839"))))

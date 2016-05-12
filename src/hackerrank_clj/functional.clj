@@ -17,9 +17,3 @@
     ((fn[lst]
        (dorun (map println
                    (take-nth 2 (rest lst))))) list_to_filter)))
-
-(defn process-rows
-  [s]
-  (let [stripped-terminals (str/replace s "^+^" "+")
-        rows (str/split stripped-terminals #"\+")]
-    (mapv #(str/split % #"\^+") rows)))
