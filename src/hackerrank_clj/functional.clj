@@ -1,4 +1,6 @@
-(ns hackerrank-clj.functional)
+(ns hackerrank-clj.functional
+  (:require [clojure.string :as str]))
+
 
 (defn filter-array []
   (let [in (clojure.string/split (slurp *in*) #"\s")
@@ -15,3 +17,9 @@
     ((fn[lst]
        (dorun (map println
                    (take-nth 2 (rest lst))))) list_to_filter)))
+
+(defn process-rows
+  [s]
+  (let [stripped-terminals (str/replace s "^+^" "+")
+        rows (str/split stripped-terminals #"\+")]
+    (mapv #(str/split % #"\^+") rows)))
