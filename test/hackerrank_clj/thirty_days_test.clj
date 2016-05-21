@@ -62,3 +62,12 @@
                                      "0 0 2 4 4 0\n"
                                      "0 0 0 2 0 0\n"
                                      "0 0 1 2 4 0\n")))))
+
+(deftest prime-detection-test
+  (is (= (str "Not prime\n"
+              "Prime\n"
+              "Prime\n")
+         (wrap-io prime-detection (str "3\n"
+                                       "12\n"
+                                       "5\n"
+                                       "7\n")))))

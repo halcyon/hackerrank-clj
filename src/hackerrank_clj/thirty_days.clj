@@ -169,3 +169,20 @@
   (let [in (clojure.string/split (slurp *in*) #"\s")
         matrix (map #(Integer/parseInt %) in)]
     (println (compute-hourglass-max matrix))))
+
+(defn prime-detector
+  [n]
+  (if (< n 2)
+    false
+    (not-any? zero?
+              (map (partial mod n)
+                   (range 2 (Math/sqrt n))))))
+
+(defn prime-detection []
+  (let [in (clojure.string/split (slurp *in*) #"\s")
+        number (#(Integer/parseInt %) (first in))
+        lines (rest in)]
+    (dorun (map (comp #(if % (println "Prime") (println "Not prime"))
+                      prime-detector
+                      #(Integer/parseInt %))
+                lines))))
