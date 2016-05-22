@@ -71,3 +71,30 @@
                                        "12\n"
                                        "5\n"
                                        "7\n")))))
+
+(deftest library-fee-test
+  (is (= (str "45\n")
+         (wrap-io library-fees (str "9 6 2015\n"
+                                    "6 6 2015\n")))))
+
+(deftest class-cancellation-test
+  (is (= (str "YES\n")
+         (wrap-io class-cancellation (str "2\n"
+                                          "2 1\n"
+                                          "0 -1\n"))))
+  (is (= (str "NO\n")
+         (wrap-io class-cancellation (str "2\n"
+                                          "3 3\n"
+                                          "0 -1 4\n"))))
+  (is (= (str "YES\n")
+         (wrap-io class-cancellation (str "1\n"
+                                          "4 2\n"
+                                          "0 -3 4 2\n"))))
+  (is (= (str "NO\n")
+         (wrap-io class-cancellation (str "1\n"
+                                          "5 3\n"
+                                          "0 -3 4 2 1\n"))))
+  (is (= (str "YES\n")
+         (wrap-io class-cancellation (str "1\n"
+                                          "6 2\n"
+                                          "0 -3 4 2 1 6\n")))))

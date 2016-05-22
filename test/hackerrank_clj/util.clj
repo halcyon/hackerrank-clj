@@ -1,5 +1,4 @@
-(ns hackerrank-clj.util
-  (:require  [clojure.test :as t]))
+(ns hackerrank-clj.util)
 
 (defn wrap-io
   [f ^String in]

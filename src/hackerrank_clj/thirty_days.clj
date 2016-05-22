@@ -186,3 +186,73 @@
                       prime-detector
                       #(Integer/parseInt %))
                 lines))))
+
+(defn date-to-map
+  [s]
+  (let [[day month year] (mapv #(Integer/parseInt %)
+                               (clojure.string/split s #"\s"))]
+    {:day day
+     :month month
+     :year year}))
+
+(defn on-time?
+ [actual due]
+ (and (<= (:year actual) (:year due))
+      (<= (:month actual) (:month due))
+      (<= (:day actual) (:day due))))
+
+(defn daily-rate?
+ [actual due]
+ (and (<= (:year actual) (:year due))
+           (<= (:month actual) (:month due))
+           (> (:day actual) (:day due))))
+
+(defn monthly-rate?
+ [actual due]
+ (and (<= (:year actual) (:year due))
+           (> (:month actual) (:month due))))
+
+(defn after-cal-year?
+ [actual due]
+ (and (> (:year actual) (:year due))))
+
+
+(defn calculate-library-fee
+  [actual due]
+  (let [fee-schedule {:on-time 0
+                      :daily 15
+                      :monthly 500
+                      :after-cal-year 10000}]
+    (cond
+      (on-time? actual due) (:on-time fee-schedule)
+      (daily-rate? actual due) (* (- (:day actual) (:day due))
+                                  (:daily fee-schedule))
+      (monthly-rate? actual due) (* (- (:month actual) (:month due))
+                                    (:monthly fee-schedule))
+      (after-cal-year? actual due) (:after-cal-year fee-schedule)
+      :else :unable-to-calculate-library-fee)))
+
+(defn library-fees []
+  (let [in (clojure.string/split (slurp *in*) #"\n")
+        actual (date-to-map (first in))
+        due (date-to-map (second in))
+        fee (calculate-library-fee actual due)]
+    (println fee)))
+
+(defn cancelled?
+  [[[_ threshold] times]]
+  (let [on-time (count (remove pos? times))]
+    (if (>= on-time threshold)
+        (println "YES")
+        (println "NO"))))
+
+(defn string->ints
+  [s]
+  (map #(Integer/parseInt %)
+       (clojure.string/split s #"\s")))
+
+(defn class-cancellation []
+  (let [in (clojure.string/split (slurp *in*) #"\n")
+        classes (map #(map string->ints %)
+                     (partition 2 (rest in)))]
+    (dorun (map cancelled? classes))))
