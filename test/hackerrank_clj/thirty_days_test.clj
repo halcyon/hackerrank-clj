@@ -98,3 +98,30 @@
          (wrap-io class-cancellation (str "1\n"
                                           "6 2\n"
                                           "0 -3 4 2 1 6\n")))))
+
+
+(deftest sort-emails-test
+  (is (= (str "julia\n"
+              "julia\n"
+              "riya\n"
+              "samantha\n"
+              "tanya\n")
+         (wrap-io sort-emails (str "6\n"
+                                   "riya riya@gmail.com\n"
+                                   "julia julia@julia.me\n"
+                                   "julia sjulia@gmail.com\n"
+                                   "julia julia@gmail.com\n"
+                                   "samantha samantha@gmail.com\n"
+                                   "tanya tanya@gmail.com\n")))))
+
+
+(deftest bitwise-problem-test
+  (is (= (str "1\n"
+              "4\n"
+              "0\n"
+              "5\n")
+         (wrap-io bitwise-problem (str "3\n"
+                                       "5 2\n"
+                                       "8 5\n"
+                                       "2 2\n"
+                                       "9000 6")))))

@@ -256,3 +256,72 @@
         classes (map #(map string->ints %)
                      (partition 2 (rest in)))]
     (dorun (map cancelled? classes))))
+
+(defn rand-int-range
+  [bottom top]
+  (+ (rand-int (inc (- top bottom)))
+     bottom))
+
+(defn gen-case
+  [n k swap]
+  (let [punctuals (dec (rand-int-range k (- n 2)))
+        lates (dec (- n punctuals))
+        lates (if swap
+                punctuals
+                lates)
+        punctuals (if swap
+                    (dec (- n lates))
+                    punctuals)]
+    (println (clojure.string/join " " (concat (repeatedly punctuals (partial (comp - rand-int) 1000))
+                                              '(0)
+                                              (repeatedly lates (partial rand-int 1000)))))))
+
+(defn generate-cases
+  []
+  (println 5)
+  (loop [n 8]
+    (let [K (inc (rand-int n))]
+      (println n K)
+      (gen-case n K (zero? (mod n 2))))
+    (if (< n 12)
+      (recur (inc n)))))
+
+(defn is-gmail?
+  [s]
+  (let [[name email] (clojure.string/split s #"\s")]
+    (some? (re-seq #"[a-z.]+@gmail.com" email))))
+
+(defn sort-emails []
+  (let [in (clojure.string/split (slurp *in*) #"\n")
+        number (#(Integer/parseInt %) (first in))
+        lines (rest in)
+        gmails (filter is-gmail? lines)
+        names (sort (map #(first (clojure.string/split % #"\s")) gmails))]
+    (dorun (map println names))))
+
+(defn bitwise-ands
+  [s]
+  (let [[n k] (map #(Integer/parseInt %)
+                   (clojure.string/split s #"\s"))
+        xs (range 1 (inc n))
+        ands (for [a xs b xs :while (> a b)]
+               (bit-and a b))]
+    (println (apply max (remove #(>= % k) ands)))))
+
+(defn bitwise-optimized
+  [s]
+  (let [[n k] (map #(Integer/parseInt %)
+                   (clojure.string/split s #"\s"))
+        a (dec k)
+        b (bit-and (bit-not a) (- (bit-not a)))]
+    (if (> (bit-or a b) n)
+      (println (dec a))
+      (println a))))
+
+
+(defn bitwise-problem
+  []
+  (let [in (clojure.string/split (slurp *in*) #"\n")
+        number (#(Integer/parseInt %) (first in))
+        lines (rest in)]
+    (dorun (map bitwise-optimized lines))))
